@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="CarouselsApp.View.CarouselView"
+             BackgroundColor="#FFFFFF">
+
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <controls:CarouselViewControl Grid.Row="0" AnimateTransition="True" InterPageSpacingColor="White" Orientation="Horizontal" InterPageSpacing="0" ShowIndicators="True" ItemsSource="{Binding CountryList}" Position="{Binding Position, Mode=TwoWay}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <controls:CarouselViewControl.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Vertical" Spacing="0">
+                        <Label Text="{Binding Title}" HorizontalTextAlignment="Center" BackgroundColor="#f18f00" FontAttributes="Bold" Font="Large" TextColor="White"/>
+                        <controls:CarouselViewControl IndicatorsShape="Square" IsSwipingEnabled="False" AnimateTransition="False" InterPageSpacingColor="Black" Orientation="Horizontal" InterPageSpacing="0" ShowIndicators="True" ItemsSource="{Binding Images}" Position="{Binding ImageIndex}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <controls:CarouselViewControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ffimageloading:CachedImage HorizontalOptions="Center" VerticalOptions="Center" DownsampleToViewSize="true" Source = "{Binding}" Aspect="AspectFit" TransparencyEnabled="false"/>
+                                </DataTemplate>
+                            </controls:CarouselViewControl.ItemTemplate>
+                        </controls:CarouselViewControl>
+                        <Label Text="{Binding Description}" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="100"/>
+                    </StackLayout>
+                </DataTemplate>
+            </controls:CarouselViewControl.ItemTemplate>
+        </controls:CarouselViewControl>
+
+        <Button Grid.Row="1" Text="Next!" Command="{Binding ButtonCommand}" BackgroundColor="Gray" Font="Large" TextColor="White" HeightRequest="80" IsEnabled="{Binding ButtonEnabled}"/>
+
+    </Grid>
+
+</ContentPage>
